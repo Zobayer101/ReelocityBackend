@@ -11,12 +11,14 @@ app.use(express.json());
 
 app.use("/route", route);
 
+app.use("/uploads", express.static("uploads"));
+
 app.use((err, req, res, next) => {
-    if (err) {
-        res.json(err);
-    }
-})
+  if (err) {
+    res.json(err);
+  }
+});
 
 app.listen(port, () => {
-  console.log(`server run on http//localhost:${port}`);
+  console.log(`server run on http://localhost:${port}`);
 });

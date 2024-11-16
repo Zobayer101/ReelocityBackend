@@ -5,7 +5,7 @@ const multer = require('../middleware/fileupload');
 const route = express.Router();
 
 //Movie insert data API
-route.post("/api/movie/insert",multer.single('image'), Controll.InsertData);
+route.post("/api/movie/insert",multer.single('poster'), Controll.InsertData);
 
 //Get Movie data API
 route.get("/api/movie/retrive",Controll.GetData);

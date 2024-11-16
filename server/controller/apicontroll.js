@@ -12,21 +12,24 @@ exports.InsertData = async (req, res) => {
       type,
       language,
       actor,
+      view,
+      likes,
     } = req.body;
-    // let sql = `INSERT INTO movies( movieName, poster, link,catagori, star, releceDate, type, language, actor)
-    // //      VALUES ('${movieName}','${poster}','${link}','${catagori}','${star}',
-    //      '${releceDate}','${type}','${language}','${actor}')`;
+    let sql = `INSERT INTO movies( movieName, poster, link,catagori, star, releceDate, type, language, actor,view,
+        likes)
+        VALUES ('${movieName}','${req.file.filename}','${link}','${catagori}','${star}',
+         '${releceDate}','${type}','${language}','${actor}','${view}','${likes}')`;
 
-    // DB.query(sql, (err, result) => {
-    //   if (err) {
-    //     res.status(500).json(err);
-    //   }
-    //   if (result) {
-    //     res.status(200).json(result);
-    //   }
-    // });
+    DB.query(sql, (err, result) => {
+      if (err) {
+        res.status(500).json(err);
+      }
+      if (result) {
+        res.status(200).json(result);
+      }
+    });
 
-    res.status(200).json(req.body);
+    //res.status(200).json({ data: req.body, file: req.file.filename });
   } catch (error) {
     res.status(500).json(error);
   }

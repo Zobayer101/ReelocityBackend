@@ -1,8 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 
-const location = "./Uploads/";
-
+const location = "./uploads/";
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, location);
@@ -10,13 +9,16 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     let fileExename = path.extname(file.originalname);
     let FileName = file.originalname
-      .repeat(fileExename, "")
-      .split("")
+      .replace(fileExename, " ")
+      .split(" ")
       .join("-");
-    cb(null, FileName + fileExename);
+    if (FileName) {
+      cb(null, FileName + fileExename);
+    } else {
+      cb(null, file.originalname);
+    }
   },
 });
-
 const upload = multer({
   storage,
   limits: { fileSize: 200000 },

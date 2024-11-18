@@ -38,7 +38,7 @@ exports.InsertData = async (req, res) => {
 exports.GetData = async (req, res) => {
   try {
     let page = parseInt(req.query.page) || 1;
-    let limit = 3;
+    let limit = 4;
     let offset = (page - 1) * limit;
     let sql = `SELECT * FROM movies LIMIT ${limit} OFFSET ${offset}`;
     DB.query(sql, (err, result) => {
@@ -46,7 +46,11 @@ exports.GetData = async (req, res) => {
         res.status(500).json(err);
       }
       if (result) {
-        res.status(200).json(result);
+        let data = [
+          [result[0] || [], result[1] || []],
+          [result[2] || [], result[3] || []],
+        ];
+        res.status(200).json(data);
       }
     });
   } catch (error) {
